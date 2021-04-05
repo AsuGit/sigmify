@@ -1,4 +1,4 @@
-package com.example.entity;
+package com.sigmify.entity;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -25,8 +25,7 @@ public class User implements Serializable {
 	private Long phone;
 	private String email;
 	private String password;
-	private String repeat_password;
-	private String user_type_id;
+	private String repeatPassword;
 	
 	@OneToMany(targetEntity = Address.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id",referencedColumnName = "id")
@@ -69,18 +68,13 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getRepeat_password() {
-		return repeat_password;
+	public String getRepeatPassword() {
+		return repeatPassword;
 	}
-	public void setRepeat_password(String repeat_password) {
-		this.repeat_password = repeat_password;
+	public void setRepeat_password(String repeatPassword) {
+		this.repeatPassword = repeatPassword;
 	}
-	public String getUser_type_id() {
-		return user_type_id;
-	}
-	public void setUser_type_id(String user_type_id) {
-		this.user_type_id = user_type_id;
-	}
+	
 	public Set<Address> getAddresses() {
 		return addresses;
 	}
@@ -90,7 +84,7 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", fName=" + fName + ", lName=" + lName + ", phone=" + phone + ", email=" + email
-				+ ", password=" + password + ", repeat_password=" + repeat_password + ", user_type_id=" + user_type_id
+				+ ", password=" + password + ", repeat_password=" + repeatPassword
 				+ "]";
 	}
 	

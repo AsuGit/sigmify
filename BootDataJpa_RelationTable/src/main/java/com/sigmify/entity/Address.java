@@ -1,4 +1,4 @@
-package com.example.entity;
+package com.sigmify.entity;
 
 import java.io.Serializable;
 

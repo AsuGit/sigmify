@@ -1,6 +1,6 @@
-package com.example.service;
+package com.sigmify.service;
 
-import com.example.entity.User;
+import com.sigmify.entity.User;
 
 public interface iUserService {
 	public void saveDataUsingParent(User user);

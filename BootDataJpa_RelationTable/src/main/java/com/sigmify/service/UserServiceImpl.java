@@ -1,11 +1,11 @@
-package com.example.service;
+package com.sigmify.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.entity.User;
-import com.example.repo.IAddressRepo;
-import com.example.repo.IUserRepo;
+import com.sigmify.entity.User;
+import com.sigmify.repo.IAddressRepo;
+import com.sigmify.repo.IUserRepo;
 
 @Service("userService")
 public class UserServiceImpl implements iUserService {
@@ -23,8 +23,7 @@ public class UserServiceImpl implements iUserService {
 		newUser.setPhone(user.getPhone());
 		newUser.setEmail(user.getEmail());
 		newUser.setPassword(user.getPassword());
-		newUser.setRepeat_password(user.getRepeat_password());
-		newUser.setUser_type_id(user.getUser_type_id());
+		newUser.setRepeat_password(user.getRepeatPassword());
 		userRepo.save(newUser);
 		System.out.println("User details saved with id"+newUser.getId() );
 
