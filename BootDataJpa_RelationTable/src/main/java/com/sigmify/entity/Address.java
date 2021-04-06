@@ -11,9 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author Dell
+ *
+ */
 
 @Entity
-@Table(name = "ADDRESS_MAP")
+@Table(name = "Address")
 public class Address {
 	
 	@Id
@@ -45,7 +50,7 @@ public class Address {
 	public String getCityLocality() {
 		return cityLocality;
 	}
-	public void setCity_locality(String cityLocality) {
+	public void setCityLocality(String cityLocality) {
 		this.cityLocality = cityLocality;
 	}
 	public String getDistrict() {

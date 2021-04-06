@@ -2,16 +2,22 @@ package com.sigmify.dto;
 
 import java.io.Serializable;
 
-import com.sigmify.entity.User;
 
 public class AddressDTO implements Serializable {
-	
+	private Integer addId;
 	private String address;
-	private String city_locality;
+	private String cityLocality;
 	private String district;
 	private String state;
 	private Integer pincode;
-	private User user;
+	private UserDTO userDto;
+	
+	public Integer getAddId() {
+		return addId;
+	}
+	public void setAddId(Integer addId) {
+		this.addId = addId;
+	}
 	
 	public String getAddress() {
 		return address;
@@ -19,11 +25,11 @@ public class AddressDTO implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getCity_locality() {
-		return city_locality;
+	public String getCityLocality() {
+		return cityLocality;
 	}
-	public void setCity_locality(String city_locality) {
-		this.city_locality = city_locality;
+	public void setCityLocality(String cityLocality) {
+		this.cityLocality = cityLocality;
 	}
 	public String getDistrict() {
 		return district;
@@ -43,12 +49,13 @@ public class AddressDTO implements Serializable {
 	public void setPincode(Integer pincode) {
 		this.pincode = pincode;
 	}
-	public User getUser() {
-		return user;
+	public UserDTO getUser() {
+		return userDto;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(UserDTO userDto) {
+		this.userDto = userDto;
 	}
+	
 	
 
 }

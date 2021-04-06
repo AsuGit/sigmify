@@ -1,7 +1,7 @@
 package com.sigmify.entity;
 
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USER_MAP")
+@Table(name="users")
 public class User{
 	
 	@Id
@@ -29,7 +29,7 @@ public class User{
 	
 	@OneToMany(targetEntity = Address.class ,cascade = CascadeType.ALL,fetch = FetchType.LAZY )
 	@JoinColumn(name = "user_id",referencedColumnName = "id")
-	private Set<Address> addresses;
+	private List<Address> addresses;
 	
 	
 	public Integer getId() {
@@ -75,10 +75,10 @@ public class User{
 		this.repeatPassword = repeatPassword;
 	}
 	
-	public Set<Address> getAddresses() {
+	public List<Address> getAddresses() {
 		return addresses;
 	}
-	public void setAddresses(Set<Address> addresses) {
+	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
 	@Override

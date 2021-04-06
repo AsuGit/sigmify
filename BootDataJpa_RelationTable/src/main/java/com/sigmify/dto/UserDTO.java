@@ -1,9 +1,9 @@
 package com.sigmify.dto;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
-import com.sigmify.entity.Address;
+
 
 public class UserDTO implements Serializable {
 	
@@ -14,7 +14,7 @@ public class UserDTO implements Serializable {
 	private String email;
 	private String password;
 	private String repeatPassword;
-	private Set<Address> addresses;
+	private List<AddressDTO> addressesDto;
 	public Integer getId() {
 		return id;
 	}
@@ -57,11 +57,11 @@ public class UserDTO implements Serializable {
 	public void setRepeatPassword(String repeatPassword) {
 		this.repeatPassword = repeatPassword;
 	}
-	public Set<Address> getAddresses() {
-		return addresses;
+	public List<AddressDTO> getAddresses() {
+		return addressesDto;
 	}
-	public void setAddresses(Set<Address> addresses) {
-		this.addresses = addresses;
+	public void setAddresses(List<AddressDTO> addressesDto) {
+		this.addressesDto = addressesDto;
 	}
 	
 	
