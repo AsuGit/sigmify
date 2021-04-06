@@ -1,24 +1,12 @@
-package com.sigmify.entity;
+package com.sigmify.dto;
 
-
+import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.sigmify.entity.Address;
 
-@Entity
-@Table(name="USER_MAP")
-public class User{
+public class UserDTO implements Serializable {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String fName;
 	private String lName;
@@ -26,12 +14,7 @@ public class User{
 	private String email;
 	private String password;
 	private String repeatPassword;
-	
-	@OneToMany(targetEntity = Address.class ,cascade = CascadeType.ALL,fetch = FetchType.LAZY )
-	@JoinColumn(name = "user_id",referencedColumnName = "id")
 	private Set<Address> addresses;
-	
-	
 	public Integer getId() {
 		return id;
 	}
@@ -74,21 +57,12 @@ public class User{
 	public void setRepeatPassword(String repeatPassword) {
 		this.repeatPassword = repeatPassword;
 	}
-	
 	public Set<Address> getAddresses() {
 		return addresses;
 	}
 	public void setAddresses(Set<Address> addresses) {
 		this.addresses = addresses;
 	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", fName=" + fName + ", lName=" + lName + ", phone=" + phone + ", email=" + email
-				+ ", password=" + password + ", repeat_password=" + repeatPassword
-				+ "]";
-	}
-	
-	
 	
 	
 

@@ -1,6 +1,6 @@
 package com.sigmify.entity;
 
-import java.io.Serializable;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,20 +13,20 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "ADDRESS")
-public class Address implements Serializable {
+@Table(name = "ADDRESS_MAP")
+public class Address {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer address_type_id;
+    private Integer addId;
 	private String address;
-	private String city_locality;
+	private String cityLocality;
 	private String district;
 	private String state;
 	private Integer pincode;
 	
 	@ManyToOne(targetEntity = User.class,cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id",referencedColumnName = "id")
+	@JoinColumn(name = "user_id",referencedColumnName = "id" )
 	private User user;
 	
 	
@@ -42,11 +42,11 @@ public class Address implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getCity_locality() {
-		return city_locality;
+	public String getCityLocality() {
+		return cityLocality;
 	}
-	public void setCity_locality(String city_locality) {
-		this.city_locality = city_locality;
+	public void setCity_locality(String cityLocality) {
+		this.cityLocality = cityLocality;
 	}
 	public String getDistrict() {
 		return district;
@@ -71,7 +71,7 @@ public class Address implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Address [address=" + address + ", city_locality=" + city_locality + ", district=" + district
+		return "Address [address=" + address + ", cityLocality=" + cityLocality + ", district=" + district
 				+ ", state=" + state + ", pincode=" + pincode + "]";
 	}
 	

@@ -1,8 +1,9 @@
 package com.sigmify.service;
 
+import com.sigmify.dto.UserDTO;
 import com.sigmify.entity.User;
 
 public interface iUserService {
-	public void saveDataUsingParent(User user);
+	public Integer saveDataUsingParent(UserDTO user);
 
 }
