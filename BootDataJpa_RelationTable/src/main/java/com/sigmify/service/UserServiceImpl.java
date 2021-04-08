@@ -71,4 +71,19 @@ public class UserServiceImpl implements iUserService {
 		
 	}
 
+	@Override
+	public Integer updateUser(UserDTO userDto) {
+		User user1=fetchSingleUser(userDto.getId());
+		BeanUtils.copyProperties(userDto, user1);
+		List<Address> adress=new ArrayList();
+		for(AddressDTO adrsDto:userDto.getAddresses()) {
+			Address addrs=new Address();
+			BeanUtils.copyProperties(adrsDto, addrs);
+			adress.add(addrs);
+		}
+		user1.setAddresses(adress);
+		userRepo.save(user1);
+		return user1.getId();
+	}
+
 }
