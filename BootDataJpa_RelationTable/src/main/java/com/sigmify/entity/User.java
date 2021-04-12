@@ -1,8 +1,6 @@
 package com.sigmify.entity;
 
-
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,11 +24,15 @@ public class User{
 	private Long phone;
 	private String email;
 	private String password;
-	private String repeatPassword;
 	
 	@OneToMany(targetEntity = Address.class ,cascade = CascadeType.ALL,fetch = FetchType.LAZY )
 	@JoinColumn(name = "user_id",referencedColumnName = "id")
 	private List<Address> addresses;
+	
+	@ManyToOne(targetEntity = UserType.class,cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_type_id",referencedColumnName = "id")
+	private UserType userType;
+	
 	
 	
 	public Integer getId() {
@@ -68,12 +71,14 @@ public class User{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getRepeatPassword() {
-		return repeatPassword;
+	
+	public UserType getUserType() {
+		return userType;
 	}
-	public void setRepeatPassword(String repeatPassword) {
-		this.repeatPassword = repeatPassword;
+	public void setUserType(UserType userType) {
+		this.userType = userType;
 	}
+	
 	
 	public List<Address> getAddresses() {
 		return addresses;
@@ -84,8 +89,7 @@ public class User{
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", fName=" + fName + ", lName=" + lName + ", phone=" + phone + ", email=" + email
-				+ ", password=" + password + ", repeat_password=" + repeatPassword
-				+ "]";
+				+ ", password=" + password + "]";
 	}
 	
 	

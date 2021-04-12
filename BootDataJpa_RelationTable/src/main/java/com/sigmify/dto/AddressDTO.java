@@ -4,19 +4,20 @@ import java.io.Serializable;
 
 
 public class AddressDTO implements Serializable {
-	private Integer addId;
+	private Integer Id;
 	private String address;
 	private String cityLocality;
 	private String district;
 	private String state;
 	private Integer pincode;
 	private UserDTO userDto;
+	private AddressTypeDTO addressTypeDto;
 	
-	public Integer getAddId() {
-		return addId;
+	public Integer getId() {
+		return Id;
 	}
-	public void setAddId(Integer addId) {
-		this.addId = addId;
+	public void setId(Integer Id) {
+		this.Id = Id;
 	}
 	
 	public String getAddress() {
@@ -49,12 +50,21 @@ public class AddressDTO implements Serializable {
 	public void setPincode(Integer pincode) {
 		this.pincode = pincode;
 	}
-	public UserDTO getUser() {
+	public UserDTO getUserDto() {
 		return userDto;
 	}
-	public void setUser(UserDTO userDto) {
+	public void setUserDto(UserDTO userDto) {
 		this.userDto = userDto;
 	}
+	public AddressTypeDTO getAddressTypeDto() {
+		return addressTypeDto;
+	}
+	public void setAddressTypeDto(AddressTypeDTO addressTypeDto) {
+		this.addressTypeDto = addressTypeDto;
+	}
+	
+
+	
 	
 	
 

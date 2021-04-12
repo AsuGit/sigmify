@@ -7,9 +7,10 @@ import com.sigmify.entity.User;
 
 public interface iUserService {
 	public Integer saveDataUsingParent(UserDTO user)throws Exception;
-	public List<User> fetchAllUser();
+	public List<UserDTO> fetchAllUser();
 	public User fetchSingleUser(Integer id);
 	public void deleteUser(Integer id);
+	public void deleteAddress(Integer id);
 	public Integer updateUser(UserDTO userDto);
 
 }

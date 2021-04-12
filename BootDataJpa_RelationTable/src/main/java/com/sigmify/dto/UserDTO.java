@@ -3,6 +3,8 @@ package com.sigmify.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import com.sigmify.entity.UserType;
+
 
 
 public class UserDTO implements Serializable {
@@ -13,8 +15,10 @@ public class UserDTO implements Serializable {
 	private Long phone;
 	private String email;
 	private String password;
-	private String repeatPassword;
 	private List<AddressDTO> addressesDto;
+	private UserTypeDTO userTypeDto;
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -23,6 +27,12 @@ public class UserDTO implements Serializable {
 	}
 	public String getfName() {
 		return fName;
+	}
+	public List<AddressDTO> getAddressesDto() {
+		return addressesDto;
+	}
+	public void setAddressesDto(List<AddressDTO> addressesDto) {
+		this.addressesDto = addressesDto;
 	}
 	public void setfName(String fName) {
 		this.fName = fName;
@@ -51,18 +61,14 @@ public class UserDTO implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getRepeatPassword() {
-		return repeatPassword;
+	public UserTypeDTO getUserTypeDto() {
+		return userTypeDto;
 	}
-	public void setRepeatPassword(String repeatPassword) {
-		this.repeatPassword = repeatPassword;
+	public void setUserTypeDto(UserTypeDTO userTypeDto) {
+		this.userTypeDto = userTypeDto;
 	}
-	public List<AddressDTO> getAddresses() {
-		return addressesDto;
-	}
-	public void setAddresses(List<AddressDTO> addressesDto) {
-		this.addressesDto = addressesDto;
-	}
+	
+	
 	
 	
 

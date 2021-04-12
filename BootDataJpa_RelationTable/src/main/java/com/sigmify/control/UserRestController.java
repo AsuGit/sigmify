@@ -1,10 +1,8 @@
 package com.sigmify.control;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sigmify.dto.AddressDTO;
 import com.sigmify.dto.UserDTO;
-import com.sigmify.entity.Address;
 import com.sigmify.entity.User;
 import com.sigmify.service.iUserService;
 
@@ -51,10 +47,10 @@ public class UserRestController {
 		return new ResponseEntity<String>("User data saved with id "+id,HttpStatus.OK);
 	}
 	@GetMapping("/getall")
-	public ResponseEntity<List<User>> getUsers(@RequestBody User user){
-		List<User> usersList=service.fetchAllUser();
+	public ResponseEntity<List<UserDTO>> getUsers(@RequestBody User user){
+		List<UserDTO> usersList=service.fetchAllUser();
 		
-		return new ResponseEntity<List<User>>(usersList,HttpStatus.OK);
+		return new ResponseEntity<List<UserDTO>>(usersList,HttpStatus.OK);
 		
 	}
 	@GetMapping("/get/{id}")
@@ -70,9 +66,14 @@ public class UserRestController {
 		return new ResponseEntity<String>("User deleted with id "+id,HttpStatus.OK);
 	}
 	
-	@PutMapping("/modify/{id}")
+	@DeleteMapping("/delete/adrs/{id}")
+	public ResponseEntity<String> deleteAddress(@PathVariable Integer id){
+		service.deleteAddress(id);
+		return new ResponseEntity<String>("Address deleted with id "+id,HttpStatus.OK);
+	}
+	
+	@PutMapping("/modify")
 	public ResponseEntity<String> updateNewUser(
-			@PathVariable Integer id,
 			@RequestBody UserDTO userDto
 			) throws Exception{
 
@@ -80,5 +81,7 @@ public class UserRestController {
 		return new ResponseEntity<String>("User updated with id "+id1,HttpStatus.OK);
 		
 	}
+	
+	
 
 }
