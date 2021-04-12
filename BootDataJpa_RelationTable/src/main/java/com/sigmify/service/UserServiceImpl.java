@@ -3,10 +3,8 @@ package com.sigmify.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.sigmify.dto.AddressDTO;
 import com.sigmify.dto.AddressTypeDTO;
 import com.sigmify.dto.UserDTO;
@@ -19,7 +17,6 @@ import com.sigmify.repo.IAddressRepo;
 import com.sigmify.repo.IAddressTypeRepo;
 import com.sigmify.repo.IUserRepo;
 import com.sigmify.repo.IUserTypeRepo;
-
 
 
 @Service("userService")
@@ -38,6 +35,7 @@ public class UserServiceImpl implements iUserService {
 	@Override
 	public Integer saveDataUsingParent(UserDTO userDto)throws Exception {
 		User newUser=new User();
+		//copy properties from UserDTO to User
 		newUser.setId(userDto.getId());
 		newUser.setfName(userDto.getfName());
 		newUser.setlName(userDto.getlName());
@@ -53,6 +51,7 @@ public class UserServiceImpl implements iUserService {
 		List<Address> listAddress=new ArrayList<Address>();
 		for(AddressDTO adrsDto:userDto.getAddressesDto()) {
 			Address adrs=new Address();
+			//copy properties from AddressDTO to Address
 			adrs.setId(adrsDto.getId());
 			adrs.setAddress(adrsDto.getAddress());
 			adrs.setCityLocality(adrsDto.getCityLocality());
@@ -64,17 +63,14 @@ public class UserServiceImpl implements iUserService {
 				addtype=addressTypeRepo.findByName(adrsDto.getAddressTypeDto().getName());
 			}
 			adrs.setAddressType(addtype);
-			
 			//BeanUtils.copyProperties(adrsDto, adrs);
+			//add address to AddressList
 			listAddress.add(adrs);
 		}
 		newUser.setAddresses(listAddress);
 		userRepo.save(newUser);
 		return newUser.getId();
-
 	}
-	
-	
 
 	@Override
 	public List<UserDTO> fetchAllUser() {
@@ -82,17 +78,13 @@ public class UserServiceImpl implements iUserService {
 		List<UserDTO> listUserDto=new ArrayList();
 		for(User user:listUser) {
 			UserDTO userDto=new UserDTO();
+			//copy properties from user to userDto
 			userDto.setId(user.getId());
 			userDto.setfName(user.getfName());
 			userDto.setlName(user.getfName());
 			userDto.setPhone(user.getPhone());
 			userDto.setEmail(user.getEmail());
 			userDto.setPassword(user.getPassword());
-			/*UserType userType=null;
-			if(user.getUserType()!=null) {
-				userType=userTypeRepo.findByName(user.getUserType().getName());
-			}
-			userDto.setUserType(userType);*/
 			UserTypeDTO uTdto= new UserTypeDTO();
 			uTdto.setId(user.getUserType().getId());
 			uTdto.setName(user.getUserType().getName());
@@ -101,6 +93,7 @@ public class UserServiceImpl implements iUserService {
 			List<AddressDTO> listAddressDto=new ArrayList();
 			for(Address adrs:user.getAddresses()) {
 				AddressDTO adrsDto=new AddressDTO();
+				//copy properties from Address to AddressDTO 
 				adrsDto.setId(adrs.getId());
 				adrsDto.setAddress(adrs.getAddress());
 				adrsDto.setCityLocality(adrs.getCityLocality());
@@ -112,9 +105,11 @@ public class UserServiceImpl implements iUserService {
 		    	 aTdto.setName(adrs.getAddressType().getName());
 		    	 aTdto.setDesc(adrs.getAddressType().getDesc());
 		    	 adrsDto.setAddressTypeDto(aTdto);
+		    	 //add AddressDTO to AddressDTOList
 				listAddressDto.add(adrsDto);
 			}
 			userDto.setAddressesDto(listAddressDto);
+			//add UserDTO to UserDTOList
 			listUserDto.add(userDto);
 		}
 		return listUserDto ;
@@ -124,6 +119,7 @@ public class UserServiceImpl implements iUserService {
 	@Override
 	public Integer updateUser(UserDTO userDto) {
 		User user1=fetchSingleUser(userDto.getId());
+		//copy properties from UserDTO to user
 		//BeanUtils.copyProperties(userDto, user1);
 		user1.setId(userDto.getId());
 		user1.setfName(userDto.getfName());
@@ -139,6 +135,7 @@ public class UserServiceImpl implements iUserService {
 		List<Address> listadress=new ArrayList();
 		for(AddressDTO adrsDto:userDto.getAddressesDto()) {
 			Address addrs=new Address();
+			//copy properties from AddressDTO to Address 
 			//BeanUtils.copyProperties(adrsDto, addrs);
 			addrs.setId(adrsDto.getId());
 			addrs.setAddress(adrsDto.getAddress());
@@ -151,10 +148,9 @@ public class UserServiceImpl implements iUserService {
 				addtype=addressTypeRepo.findByName(adrsDto.getAddressTypeDto().getName());
 			}
 			addrs.setAddressType(addtype);
+			//add Address to AddressList
 			listadress.add(addrs);
 		}
-		
-		
 		user1.setAddresses(listadress);
 		userRepo.save(user1);
 		return user1.getId();
@@ -176,22 +172,13 @@ public class UserServiceImpl implements iUserService {
 		if(userRepo.existsById(id)) {
 			userRepo.deleteById(id);
 		}
-		
-		
 	}
-
-
 
 	@Override
 	public void deleteAddress(Integer id) {
 		if(addressRepo.existsById(id)) {
 			addressRepo.deleteById(id);
 		}
-		
-		
-		
 	}
-
-	
 
 }
