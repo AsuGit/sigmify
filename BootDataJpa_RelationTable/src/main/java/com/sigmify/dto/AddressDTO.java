@@ -12,9 +12,16 @@ public class AddressDTO implements Serializable {
 	private Integer pincode;
 	private UserDTO userDto;
 	private AddressTypeDTO addressTypeDto;
+	private boolean delete;
 	
 	public Integer getId() {
 		return Id;
+	}
+	public boolean isDelete() {
+		return delete;
+	}
+	public void setDelete(boolean delete) {
+		this.delete = delete;
 	}
 	public void setId(Integer Id) {
 		this.Id = Id;

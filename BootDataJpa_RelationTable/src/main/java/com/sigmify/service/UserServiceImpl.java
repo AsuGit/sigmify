@@ -122,11 +122,9 @@ public class UserServiceImpl implements iUserService {
 		//copy properties from UserDTO to user
 		//BeanUtils.copyProperties(userDto, user1);
 		user1.setId(userDto.getId());
-		user1.setfName(userDto.getfName());
-		user1.setlName(userDto.getlName());
 		user1.setPhone(userDto.getPhone());
 		user1.setEmail(userDto.getEmail());
-		user1.setPassword(userDto.getPassword());
+		///user1.setPassword(userDto.getPassword());
 		UserType userType=null;
 		if(userDto.getUserTypeDto()!=null) {
 			userType=userTypeRepo.findByName(userDto.getUserTypeDto().getName());
@@ -134,10 +132,22 @@ public class UserServiceImpl implements iUserService {
 		user1.setUserType(userType);
 		List<Address> listadress=new ArrayList();
 		for(AddressDTO adrsDto:userDto.getAddressesDto()) {
-			Address addrs=new Address();
+			Address  addrs =null;
+			if(adrsDto.getId()!=null) {
+				Optional<Address> opt=addressRepo.findById(adrsDto.getId());
+				if(opt.isPresent())
+					addrs=opt.get();
+				if(addrs!=null && adrsDto.isDelete()) {
+					addressRepo.delete(addrs);
+					continue;
+				} 
+			}
+			else {
+			addrs=new Address();
+			}
+
 			//copy properties from AddressDTO to Address 
 			//BeanUtils.copyProperties(adrsDto, addrs);
-			addrs.setId(adrsDto.getId());
 			addrs.setAddress(adrsDto.getAddress());
 			addrs.setCityLocality(adrsDto.getCityLocality());
 			addrs.setDistrict(adrsDto.getDistrict());
