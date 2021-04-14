@@ -82,6 +82,16 @@ public class UserRestController {
 		
 	}
 	
+	@PutMapping("/modify/addrs")
+	public ResponseEntity<String> updateNewAddress(
+			@RequestBody UserDTO userDto
+			) throws Exception{
+
+		Integer id1=service.updateAddress(userDto);
+		return new ResponseEntity<String>("User updated with id "+id1,HttpStatus.OK);
+		
+	}
+	
 	
 
 }

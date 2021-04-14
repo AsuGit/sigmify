@@ -12,5 +12,6 @@ public interface iUserService {
 	public void deleteUser(Integer id);
 	public void deleteAddress(Integer id);
 	public Integer updateUser(UserDTO userDto);
+	public Integer updateAddress(UserDTO userDto);
 
 }

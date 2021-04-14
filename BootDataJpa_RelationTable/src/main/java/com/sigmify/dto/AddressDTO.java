@@ -10,7 +10,7 @@ public class AddressDTO implements Serializable {
 	private String district;
 	private String state;
 	private Integer pincode;
-	private UserDTO userDto;
+	private Integer userDtoId;
 	private AddressTypeDTO addressTypeDto;
 	private boolean delete;
 	
@@ -57,11 +57,12 @@ public class AddressDTO implements Serializable {
 	public void setPincode(Integer pincode) {
 		this.pincode = pincode;
 	}
-	public UserDTO getUserDto() {
-		return userDto;
+	
+	public Integer getUserDtoId() {
+		return userDtoId;
 	}
-	public void setUserDto(UserDTO userDto) {
-		this.userDto = userDto;
+	public void setUserDtoId(Integer userDtoId) {
+		this.userDtoId = userDtoId;
 	}
 	public AddressTypeDTO getAddressTypeDto() {
 		return addressTypeDto;

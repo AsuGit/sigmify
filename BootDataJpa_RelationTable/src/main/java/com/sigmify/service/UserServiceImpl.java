@@ -100,6 +100,7 @@ public class UserServiceImpl implements iUserService {
 				adrsDto.setDistrict(adrs.getDistrict());
 				adrsDto.setState(adrs.getState());
 				adrsDto.setPincode(adrs.getPincode());
+				adrsDto.setUserDtoId(userDto.getId());
 				 AddressTypeDTO aTdto = new AddressTypeDTO();
 		    	 aTdto.setId(adrs.getAddressType().getId());
 		    	 aTdto.setName(adrs.getAddressType().getName());
@@ -124,44 +125,13 @@ public class UserServiceImpl implements iUserService {
 		user1.setId(userDto.getId());
 		user1.setPhone(userDto.getPhone());
 		user1.setEmail(userDto.getEmail());
-		///user1.setPassword(userDto.getPassword());
+		//user1.setPassword(userDto.getPassword());
 		UserType userType=null;
 		if(userDto.getUserTypeDto()!=null) {
 			userType=userTypeRepo.findByName(userDto.getUserTypeDto().getName());
 		}
 		user1.setUserType(userType);
-		List<Address> listadress=new ArrayList();
-		for(AddressDTO adrsDto:userDto.getAddressesDto()) {
-			Address  addrs =null;
-			if(adrsDto.getId()!=null) {
-				Optional<Address> opt=addressRepo.findById(adrsDto.getId());
-				if(opt.isPresent())
-					addrs=opt.get();
-				if(addrs!=null && adrsDto.isDelete()) {
-					addressRepo.delete(addrs);
-					continue;
-				} 
-			}
-			else {
-			addrs=new Address();
-			}
-
-			//copy properties from AddressDTO to Address 
-			//BeanUtils.copyProperties(adrsDto, addrs);
-			addrs.setAddress(adrsDto.getAddress());
-			addrs.setCityLocality(adrsDto.getCityLocality());
-			addrs.setDistrict(adrsDto.getDistrict());
-			addrs.setState(adrsDto.getState());
-			addrs.setPincode(adrsDto.getPincode());
-			AddressType addtype=null;
-			if(adrsDto.getAddressTypeDto()!=null) {
-				addtype=addressTypeRepo.findByName(adrsDto.getAddressTypeDto().getName());
-			}
-			addrs.setAddressType(addtype);
-			//add Address to AddressList
-			listadress.add(addrs);
-		}
-		user1.setAddresses(listadress);
+		
 		userRepo.save(user1);
 		return user1.getId();
 	}
@@ -189,6 +159,63 @@ public class UserServiceImpl implements iUserService {
 		if(addressRepo.existsById(id)) {
 			addressRepo.deleteById(id);
 		}
+	}
+
+	@Override
+	public Integer updateAddress(UserDTO userDto) {
+		Optional<User> opt=userRepo.findById(userDto.getId());
+		User user=null;
+		if(opt.isPresent()) {
+			user=opt.get();
+		}
+		List<Address> listadress=new ArrayList();
+		for(AddressDTO adrsDto:userDto.getAddressesDto()) {
+			Address  addrs =null;
+			if(adrsDto.getId()!=null) {
+				Optional<Address> opt1=addressRepo.findById(adrsDto.getId());
+				if(opt.isPresent()) {
+					addrs=opt1.get();
+					if(addrs!=null && adrsDto.isDelete()) {
+						addressRepo.delete(addrs);
+						continue;
+					} 
+					if(addrs!=null && adrsDto.getAddress()!=null) {
+						addrs.setAddress(adrsDto.getAddress());
+						addrs.setCityLocality(adrsDto.getCityLocality());
+						addrs.setPincode(adrsDto.getPincode());
+						addrs.setDistrict(adrsDto.getDistrict());
+					}
+				}
+				
+			}
+			else {
+			addrs=new Address();
+			//copy properties from AddressDTO to Address 
+			//BeanUtils.copyProperties(adrsDto, addrs);
+			addrs.setAddress(adrsDto.getAddress());
+			addrs.setCityLocality(adrsDto.getCityLocality());
+			addrs.setDistrict(adrsDto.getDistrict());
+			addrs.setState(adrsDto.getState());
+			addrs.setPincode(adrsDto.getPincode());
+			AddressType addtype=null;
+			if(adrsDto.getAddressTypeDto()!=null) {
+				addtype=addressTypeRepo.findByName(adrsDto.getAddressTypeDto().getName());
+			}
+			addrs.setAddressType(addtype);
+			//add Address to AddressList
+			listadress.add(addrs);
+			
+			}//else
+			
+          // addressRepo.save(addrs);
+			
+		}//for
+		for(Address adrs1:user.getAddresses()) {
+			listadress.add(adrs1);
+		}
+		user.setAddresses(listadress);
+		userRepo.save(user);
+		return user.getId();
 	}
 
 }
