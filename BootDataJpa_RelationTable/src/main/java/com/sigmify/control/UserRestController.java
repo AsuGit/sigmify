@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sigmify.dto.StateDTO;
 import com.sigmify.dto.UserDTO;
 import com.sigmify.entity.User;
+import com.sigmify.service.iDistrictService;
 import com.sigmify.service.iUserService;
 
 @RestController
@@ -25,6 +27,8 @@ public class UserRestController {
 	
 	@Autowired
 	private iUserService service;
+	@Autowired
+	private iDistrictService districtService;
 	
 	
 	@PostMapping("/save")
@@ -32,20 +36,19 @@ public class UserRestController {
 			@RequestBody UserDTO userDto
 			) throws Exception
 	{
-		
-		/*UserDTO userDto=new UserDTO();
-		AddressDTO addDto=new AddressDTO();
-		userDto.setId(user.getId());
-		userDto.setfName(user.getfName());
-		userDto.setlName(user.getfName());
-		userDto.setPhone(user.getPhone());
-		userDto.setEmail(user.getEmail());
-		userDto.setPassword(user.getPassword());
-		userDto.setRepeatPassword(user.getRepeatPassword());*/
-		//userDto.setAddresses(user.getAddresses());
 		Integer id=service.saveDataUsingParent(userDto);
 		return new ResponseEntity<String>("User data saved with id "+id,HttpStatus.OK);
 	}
+	
+	@PostMapping("/save/state")
+	public ResponseEntity<String> saveState(
+			@RequestBody StateDTO stateDto
+			) throws Exception
+	{
+		Integer id=districtService.saveStateData(stateDto);
+		return new ResponseEntity<String>("User data saved with id "+id,HttpStatus.OK);
+	}
+	
 	@GetMapping("/getall")
 	public ResponseEntity<List<UserDTO>> getUsers(@RequestBody User user){
 		List<UserDTO> usersList=service.fetchAllUser();
