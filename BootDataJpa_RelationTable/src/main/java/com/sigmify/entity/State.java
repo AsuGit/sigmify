@@ -23,8 +23,9 @@ public class State implements Serializable {
 	@Column(unique = true)
 	private String name;
 	private String description;
-	@OneToMany(targetEntity = District.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "state")
-   // @JoinColumn(name = "state_name",referencedColumnName = "name")
+	@OneToMany(targetEntity = District.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinColumn(name = "state_name",referencedColumnName = "name")
+	@JoinColumn(name = "state_id",referencedColumnName = "id")
 	private List<District> districts;
 	
 	public Integer getId() {

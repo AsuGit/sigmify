@@ -2,21 +2,16 @@ package com.sigmify.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sigmify.dto.DistrictDTO;
 import com.sigmify.dto.StateDTO;
-import com.sigmify.entity.Address;
-import com.sigmify.entity.AddressType;
 import com.sigmify.entity.District;
 import com.sigmify.entity.State;
 import com.sigmify.repo.DistrictRepo;
-import com.sigmify.repo.IAddressRepo;
-import com.sigmify.repo.IAddressTypeRepo;
-import com.sigmify.repo.IUserRepo;
-import com.sigmify.repo.IUserTypeRepo;
 import com.sigmify.repo.StateRepo;
 
 
@@ -45,11 +40,11 @@ public class DistrictServiceImpl implements iDistrictService {
 			district.setId(districtDto.getId());
 			district.setName(districtDto.getName());
 			district.setDescription(districtDto.getDescription());
-			State state=null;
+			/*State state=null;
 			if(districtDto.getStateDto()!=null) {
 				state=stateRepo.findByName(stateDto.getName());
 			}
-			district.setState(state);
+			district.setState(state);*/
 			//BeanUtils.copyProperties(adrsDto, adrs);
 			//add address to AddressList
 			listDistrict.add(district);
@@ -101,47 +96,59 @@ public class DistrictServiceImpl implements iDistrictService {
 			listUserDto.add(userDto);
 		}
 		return listUserDto ;
-	}
+	}*/
 	
 	
 	@Override
-	public Integer updateUser(UserDTO userDto) {
-		User user1=fetchSingleUser(userDto.getId());
-		//copy properties from UserDTO to user
-		//BeanUtils.copyProperties(userDto, user1);
-		user1.setId(userDto.getId());
-		user1.setPhone(userDto.getPhone());
-		user1.setEmail(userDto.getEmail());
-		//user1.setPassword(userDto.getPassword());
-		UserType userType=null;
-		if(userDto.getUserTypeDto()!=null) {
-			userType=userTypeRepo.findByName(userDto.getUserTypeDto().getName());
-		}
-		user1.setUserType(userType);
-		
-		userRepo.save(user1);
-		return user1.getId();
-	}
-	
-	@Override
-	public User fetchSingleUser(Integer id) {
-		Optional<User> opt=userRepo.findById(id);
-		User user=null;
+	public Integer updateState(StateDTO stateDto) {
+		Optional<State> opt=stateRepo.findById(stateDto.getId());
+		State state=null;
 		if(opt.isPresent()) {
-			user=opt.get();
+			state=opt.get();
 		}
+		List<DistrictDTO> districtDtoList=new ArrayList();
+		for(DistrictDTO districtDto:stateDto.getDistrictDtos()) {
+			District district=null;
+			
+		}
+
+	
 		
-		return user;
+		stateRepo.save(state);
+		return state.getId();
 	}
 	
 	@Override
-	public void deleteUser(Integer id) {
-		if(userRepo.existsById(id)) {
-			userRepo.deleteById(id);
+	public StateDTO fetchSingleState(Integer id) {
+		Optional<State> opt=stateRepo.findById(id);
+		State state=null;
+		if(opt.isPresent()) {
+			state=opt.get();
+		}
+		StateDTO stateDto=new StateDTO();
+		stateDto.setId(state.getId());
+		stateDto.setName(state.getName());
+		stateDto.setDescription(state.getDescription());
+		List<DistrictDTO> districtDtoList=new ArrayList();
+		for(District district:state.getDistricts()) {
+			DistrictDTO districtDto=new DistrictDTO();
+			districtDto.setId(district.getId());
+			districtDto.setName(district.getName());
+			districtDto.setDescription(district.getDescription());
+			districtDtoList.add(districtDto);
+		}
+		stateDto.setDistrictDtos(districtDtoList);
+		return stateDto;
+	}
+	
+	@Override
+	public void deleteState(Integer id) {
+		if(stateRepo.existsById(id)) {
+			stateRepo.deleteById(id);
 		}
 	}
 	
-	@Override
+	/*@Override
 	public void deleteAddress(Integer id) {
 		if(addressRepo.existsById(id)) {
 			addressRepo.deleteById(id);

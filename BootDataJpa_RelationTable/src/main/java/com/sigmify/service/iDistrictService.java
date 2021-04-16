@@ -8,11 +8,11 @@ import com.sigmify.entity.State;
 
 public interface iDistrictService {
 	public Integer saveStateData(StateDTO stateDto)throws Exception;
-	/*public List<StateDTO> fetchAllState();
-	public State fetchSingleState(Integer id);
+	//public List<StateDTO> fetchAllState();
+	public StateDTO fetchSingleState(Integer id);
 	public void deleteState(Integer id);
-	public void deleteDistrict(Integer id);
+	//public void deleteDistrict(Integer id);
 	public Integer updateState(StateDTO stateDto);
-	public Integer updateDistrict(DistrictDTO districtDto);
-	*/
+	//public Integer updateDistrict(DistrictDTO districtDto);
+	
 }

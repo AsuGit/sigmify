@@ -21,7 +21,6 @@ public class District implements Serializable {
 	private String name;
 	private String description;
 	@ManyToOne(targetEntity = State.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name = "state_name",referencedColumnName = "name")
 	private State state;
 	
 	public State getState() {

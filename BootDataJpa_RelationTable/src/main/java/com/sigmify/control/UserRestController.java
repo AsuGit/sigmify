@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sigmify.dto.StateDTO;
 import com.sigmify.dto.UserDTO;
+import com.sigmify.entity.State;
 import com.sigmify.entity.User;
 import com.sigmify.service.iDistrictService;
 import com.sigmify.service.iUserService;
@@ -50,7 +51,7 @@ public class UserRestController {
 	}
 	
 	@GetMapping("/getall")
-	public ResponseEntity<List<UserDTO>> getUsers(@RequestBody User user){
+	public ResponseEntity<List<UserDTO>> getUsers(){
 		List<UserDTO> usersList=service.fetchAllUser();
 		
 		return new ResponseEntity<List<UserDTO>>(usersList,HttpStatus.OK);
@@ -63,10 +64,23 @@ public class UserRestController {
 		
 	}
 	
+	@GetMapping("/get/state/{id}")
+	public ResponseEntity<StateDTO>getSingleState(@PathVariable Integer id){
+		StateDTO stateDto=districtService.fetchSingleState(id);
+		return new ResponseEntity<StateDTO>(stateDto,HttpStatus.OK);
+		
+	}
+	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteUser(@PathVariable Integer id){
 		service.deleteUser(id);
 		return new ResponseEntity<String>("User deleted with id "+id,HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/delete/state/{id}")
+	public ResponseEntity<String> deleteState(@PathVariable Integer id){
+		districtService.deleteState(id);
+		return new ResponseEntity<String>("State deleted with id "+id,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/delete/adrs/{id}")
